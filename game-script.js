@@ -1,0 +1,89 @@
+// 1. Create scores in the global scope and initialize them to 0
+let humanScore = 0;
+let computerScore = 0;
+
+// 2. Function to generate a random computer choice
+function getComputerChoice() {
+    let randomNumber = Math.random();
+    console.log("Math.random generated: " + randomNumber); // Prints to console as requested
+    
+    if (randomNumber < 0.33) {
+        return "rock";
+    } else if (randomNumber < 0.66) {
+        return "paper";
+    } else {
+        return "scissors";
+    }
+}
+
+// 3. Function to capture user inputs via prompt()
+function getHumanChoice() {
+    let userInput = prompt("Enter rock, paper, or scissors:");
+    
+    // If user hits cancel, default to rock to prevent game errors
+    if (!userInput) {
+        return "rock";
+    }
+    return userInput;
+}
+
+// 4. Function to play a single round and handle tracking/printing strings
+function playRound(humanChoice, computerChoice) {
+    // Make humanChoice case-insensitive using toLowerCase()
+    let cleanHuman = humanChoice.toLowerCase();
+    let cleanComputer = computerChoice.toLowerCase();
+    
+    if (cleanHuman === cleanComputer) {
+        return "It's a tie!";
+    }
+    
+    if (
+        (cleanHuman === "rock" && cleanComputer === "scissors") ||
+        (cleanHuman === "paper" && cleanComputer === "rock") ||
+        (cleanHuman === "scissors" && cleanComputer === "paper")
+    ) {
+        humanScore++; // Increment player score
+        return "You win! " + humanChoice + " beats " + computerChoice;
+    } else {
+        computerScore++; // Increment computer score
+        return "You lose! " + computerChoice + " beats " + humanChoice;
+    }
+}
+
+// 5. Function to play exactly 3 rounds using a loop and declare the final winner
+function playGame() {
+    // Reset scores at the start of a fresh game execution
+    humanScore = 0;
+    computerScore = 0;
+    let roundLog = "";
+
+    // Loop exactly 3 times
+    for (let i = 1; i <= 3; i++) {
+        alert("Starting Round " + i + " of 3");
+        let choiceHuman = getHumanChoice();
+        let choiceComputer = getComputerChoice();
+        
+        let roundResult = playRound(choiceHuman, choiceComputer);
+        alert(roundResult + "\n\nScores -> You: " + humanScore + " | Computer: " + computerScore);
+        roundLog += "Round " + i + ": " + roundResult + "<br>";
+    }
+
+    // Determine final message constraints
+    let finalVerdict = "";
+    if (humanScore > computerScore) {
+        finalVerdict = "You win the game!";
+    } else if (computerScore > humanScore) {
+        finalVerdict = "You lose the game!";
+    } else {
+        finalVerdict = "The game ended in an overall tie!";
+    }
+
+    // Output final results to the HTML UI screen
+    document.getElementById("game-status").innerHTML = 
+        "<strong>Game Over!</strong><br><br>" + roundLog + "<br><strong>" + finalVerdict + "</strong>";
+    
+    return finalVerdict;
+}
+
+// Wire the interface button to execute the code loop cleanly
+document.getElementById("start-game-btn")
