@@ -1,5 +1,4 @@
-# ashleywhite-per-scholas-tech-prep
-# Per Scholas Foundations: Rock, Paper, Scissors
+# Per Scholas Foundations Technical Preparation: Rock, Paper, Scissors by Ashley White
 
 ## Project Overview
 This repository contains my foundational technical preparation project for the Per Scholas AI Native Software Development program. It implements a complete, interactive, three-round Rock, Paper, Scissors game played via browser interface prompts and alerts.
